@@ -30,10 +30,11 @@ def find_by_text(soup, text, tag, **kwargs):
     matches = []
     for element in elements:
         if element.find(text=like(text)):
-            matches.append(element)
+            matches.append(str(element))
     if len(matches) > 1:
         raise ValueError("Too many matches:\n" + "\n".join(matches))
     elif len(matches) == 0:
+        print("Nothing found with {} text, {} tag and {}".format(text, tag, kwargs))
         return None
     else:
         return matches[0]

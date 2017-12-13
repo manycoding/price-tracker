@@ -8,7 +8,10 @@ from datetime import datetime
 
 def get_price(url, text, tag, **kwargs):
     """Get price value from url by path"""
-    soup = BeautifulSoup(router.do_get(url).text, "html.parser")
+    r = router.do_get(url)
+    if not r:
+        return None
+    soup = BeautifulSoup(r.text, "html.parser")
     price_str = str(parser.find_by_text(soup, text, tag, **kwargs))
     price = parser.get_number_from_string(price_str)
     return price
@@ -18,6 +21,8 @@ def update_price_data(tracking_items):
     """Get current prices for saved items"""
     for item in tracking_items:
         price = get_price(item['url'], item['text'], item['tag'])
+        if price is None:
+            continue
         if 'prices' in item and price != item['prices'][-1]:
             item['prices'].append(price)
             item['price'] = price
@@ -37,6 +42,8 @@ def add_price_data(tracking_items, input_file):
             if [i for i in tracking_items if i['url'] == url]:
                 continue
             price = get_price(url, text, tag)
+            if price is None:
+                continue
             print("Fetched {}\t{}".format(url, price))
             tracking_items.append({
                 "url": url,
