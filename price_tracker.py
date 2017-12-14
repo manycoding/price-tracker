@@ -6,21 +6,20 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 
-def get_price(url, text, tag, **kwargs):
+def get_price(url):
     """Get price value from url by path"""
     r = router.do_get(url)
     if not r:
         return None
     soup = BeautifulSoup(r.text, "html.parser")
-    price_str = str(parser.find_by_text(soup, text, tag, **kwargs))
-    price = parser.get_number_from_string(price_str)
-    return price
+    return parser.find_price(soup)
 
 
 def update_price_data(tracking_items):
     """Get current prices for saved items"""
     for item in tracking_items:
-        price = get_price(item['url'], item['text'], item['tag'])
+        price = get_price(item['url'])
+        print("Fetched {} from {}".format(price, item['url']))
         if price is None:
             continue
         if 'prices' in item and price != item['prices'][-1]:
@@ -34,22 +33,26 @@ def add_price_data(tracking_items, input_file):
     """Get current prices for new items"""
     with open(input_file) as file:
         for line in file:
-            try:
-                url, text, tag = line.rstrip().split(',')
-            except ValueError as err:
-                print(err)
+            # Ignore commented lines
+            if line.startswith("#"):
                 continue
+            url = line.strip()
+
+            # Skip if url already exists
             if [i for i in tracking_items if i['url'] == url]:
                 continue
-            price = get_price(url, text, tag)
+
+            r = router.do_get(url)
+            if not r:
+                return None
+            soup = BeautifulSoup(r.text, "html.parser")
+            price = parser.find_price(soup)
             if price is None:
                 continue
             print("Fetched {}\t{}".format(url, price))
             tracking_items.append({
                 "url": url,
                 "price": price,
-                "text": text,
-                "tag": tag,
                 "timestamp": (str(datetime.utcnow())).split('.')[0]
             })
 
