@@ -17,16 +17,20 @@ def get_price(url):
 
 def update_price_data(tracking_items):
     """Get current prices for saved items"""
+    updated_items = []
     for item in tracking_items:
         price = get_price(item['url'])
         print("Fetched {} from {}".format(price, item['url']))
+
         if price is None:
             continue
         if 'prices' in item and price != item['prices'][-1]:
             item['prices'].append(price)
             item['price'] = price
             item['timestamp'] = (str(datetime.utcnow())).split('.')[0]
-    return tracking_items
+            updated_items.append(item)
+
+    return tracking_items, updated_items
 
 
 def add_price_data(tracking_items, input_file):
@@ -49,7 +53,7 @@ def add_price_data(tracking_items, input_file):
             price = parser.find_price(soup)
             if price is None:
                 continue
-            print("Fetched {}\t{}".format(url, price))
+            print("Fetched {} from {}".format(price, url))
             tracking_items.append({
                 "url": url,
                 "price": price,
@@ -64,7 +68,7 @@ def save_items(tracking_items, file):
         json.dump(tracking_items, history)
 
 
-def load_items(file):
+def load(file):
     if not os.path.exists(file):
         return None
     with open(file, "r") as history:

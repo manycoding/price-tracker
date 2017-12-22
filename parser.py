@@ -24,11 +24,11 @@ def find_text_by_text(soup, text):
     If no match is found, return None.
     If more than one match is found, raise ValueError.
     """
-    matches = soup.find_all(text=lambda text:
-                            re.compile(like("NT$")).match(text))
+    matches = soup.find_all(text=lambda t:
+                            re.compile(like(text)).match(t))
 
     print("Found {} items with {} text:".format(len(matches), text))
-    print(matches)
+    # print(matches)
     matches = [get_number_from_string(t) for t in matches
                if get_number_from_string(t)]
     if len(matches) > 1:
@@ -66,7 +66,7 @@ def find_text_by_attrs(soup, pattern):
                             any(re.compile(pattern).
                                 match(str(a)) for a in t.attrs.values()))
     print("Found {} items with {} pattern:".format(len(matches), pattern))
-    print(matches)
+    # print(matches)
     matches = [get_number_from_string(
         e.text) for e in matches if get_number_from_string(e.text)]
     if len(matches) > 1:
@@ -95,11 +95,23 @@ def get_number_from_string(string):
 
 
 def find_price(soup):
+    """
+    Price search strategy
+    """
     price = find_text_by_attrs(soup, "(p|P)rice")
     if not price:
-        price = find_text_by_text(soup, "$")
-        
+        price = find_text_by_text(soup, "NT$")
+
     # Normalize delimiter
     if price:
         price = price.replace(",", ".")
     return price
+
+
+def xstr(s):
+    """
+    Return empty string if it's None
+    """
+    if s is None:
+        return ""
+    return str(s)
