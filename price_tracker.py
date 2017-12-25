@@ -24,8 +24,13 @@ def update_price_data(tracking_items):
 
         if price is None:
             continue
-        if 'prices' in item and price != item['prices'][-1]:
-            item['prices'].append(price)
+        if price != item['price']:
+            if 'prices' not in item:
+                item['prices'] = [item['price']]
+            elif 'prices' in item:
+                if price != item['prices'][-1]:
+                    item['prices'].append(item['price'])
+
             item['price'] = price
             item['timestamp'] = (str(datetime.utcnow())).split('.')[0]
             updated_items.append(item)

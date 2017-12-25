@@ -28,16 +28,14 @@ if __name__ == "__main__":
         File with previously tracked data
         """)
     parser.add_argument("-i", "--input_file", help="""
-        Input file with data for items you want to track.
-        Line format:
-        text - url,type,text,tag
-        tag - url,type,tag="value",tag2="value"
+        Input file with urls you want to track.
         Example:
-        https://www.aliexpress.com/item/TOAKS-Titanium-Pot-Camping-Cooking-Pots-Picnic-Hang-Pot-Ultralight-Titanium-Pot-1600ml-POT-1300-BH/32783166417.html,tag,itemprop="price"
+        https://www.aliexpress.com/item/TOAKS-Titanium-Pot-Camping-Cooking-Pots-Picnic-Hang-Pot-Ultralight-Titanium-Pot-1600ml-POT-1300-BH/32783166417.html
         """)
-    parser.add_argument("-t", "--test", action="store_true", help="""
-        File with previously tracked data
-        """)
+    parser.add_argument("-t", "--test", default=False, action="store_true",
+                        help="""
+                        File with previously tracked data
+                        """)
     parser.add_argument("-s", "--settings_file", default="config", help="""
         File with email settings, one per line.
         From, To and Password.
