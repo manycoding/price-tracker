@@ -1,0 +1,24 @@
+{% extends "pt/base.html" %}
+
+{% block header %}
+  <h1>Entries</h1>
+{% endblock header %}
+
+{% block content %}
+
+  <p>Entries</p>
+
+  <ul>
+    {% for entry in entries %}
+  <li>
+    <h3>
+      <a">{{ entry }}</a>
+    </h3>
+  </li>
+    {% empty %}
+      <li>No entries have been added yet.</li>
+    {% endfor %}
+  </ul>
+
+  <h3><a href="{% url 'pt:new_entry' %}">Add new entry</h3>
+{% endblock content %}
