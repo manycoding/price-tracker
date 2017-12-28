@@ -14,7 +14,11 @@
     <a">{{ entry }}</a>
     <small>
       <a href="{% url 'pt:edit_entry' entry.id %}">
-        edit entry</a>
+        edit</a>
+    </small>
+    <small>
+      <a href="{% url 'pt:remove_entry' entry.id %}">
+        remove</a>
     </small>
   </li>
     {% empty %}

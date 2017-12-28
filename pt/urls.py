@@ -16,6 +16,9 @@ urlpatterns = [
     path(r'new_entry/', views.new_entry, name='new_entry'),
 
     # Page for editing an entry
-    path(r'edit_entry/(?P<entry_id>\d+)/', views.edit_entry,
-         name='edit_entry'),
+    path('edit_entry/<int:entry_id>/', views.edit_entry, name='edit_entry'),
+
+    # Page for removing an entry
+    path('remove_entry/<int:entry_id>/', views.remove_entry,
+         name='remove_entry'),
 ]
