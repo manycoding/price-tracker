@@ -5,5 +5,5 @@ from .models import Entry
 class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ['url', 'price']
-        labels = {'url': '', 'price': ''}
+        fields = ['url']
+        labels = {'url': ''}

@@ -11,9 +11,11 @@
   <ul>
     {% for entry in entries %}
   <li>
-    <h3>
-      <a">{{ entry }}</a>
-    </h3>
+    <a">{{ entry }}</a>
+    <small>
+      <a href="{% url 'pt:edit_entry' entry.id %}">
+        edit entry</a>
+    </small>
   </li>
     {% empty %}
       <li>No entries have been added yet.</li>
