@@ -59,15 +59,13 @@ def edit_entry(request, entry_id):
 def remove_entry(request, entry_id):
     """Remove an entry"""
     entry = Entry.objects.get(id=entry_id)
-    if request.method != 'DELETE':
+    if request.method != 'POST':
         # Initial request; pre-fill form with the current entry.
         form = EntryForm(instance=entry)
     else:
-        # DELETE data submitted; process data.
-        form = EntryForm(instance=entry, data=request.GET)
-        if form.is_valid():
-            form.DELETE()
-            return HttpResponseRedirect(reverse('pt:entries'))
+        # DELETE entry
+        entry.delete()
+        return HttpResponseRedirect(reverse('pt:entries'))
 
     context = {'entry': entry, 'form': form}
     return render(request, 'pt/remove_entry.html', context)
