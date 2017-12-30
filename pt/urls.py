@@ -12,11 +12,12 @@ urlpatterns = [
     # Show all entries
     path(r'entries/', views.entries, name='entries'),
 
+    # Entry page
+    path('entries/<int:entry_id>/', views.entry,
+         name='entry'),
+
     # Page for adding a new entry
     path(r'new_entry/', views.new_entry, name='new_entry'),
-
-    # Page for editing an entry
-    path('edit_entry/<int:entry_id>/', views.edit_entry, name='edit_entry'),
 
     # Page for removing an entry
     path('remove_entry/<int:entry_id>/', views.remove_entry,

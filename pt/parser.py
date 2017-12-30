@@ -115,3 +115,10 @@ def xstr(s):
     if s is None:
         return ""
     return str(s)
+
+
+def clip_parameters(url):
+    """
+    Remove parameters from url
+    """
+    return url.rsplit('?', 1)[0]

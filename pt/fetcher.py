@@ -8,10 +8,10 @@ def get_price_data(url):
     """Get current price data from url"""
     r = router.do_get(url)
     if not r:
-        return None
+        return None, (str(datetime.utcnow())).split('.')[0]
     soup = BeautifulSoup(r.text, "html.parser")
     price = parser.find_price(soup)
     if price is None:
-        return -1, (str(datetime.utcnow())).split('.')[0]
+        return None, (str(datetime.utcnow())).split('.')[0]
     print("Fetched {} from {}".format(price, url))
     return price, (str(datetime.utcnow())).split('.')[0]

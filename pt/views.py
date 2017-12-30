@@ -4,6 +4,7 @@ from django.urls import reverse
 from .models import Entry
 from .forms import EntryForm
 import pt.fetcher as f
+import pt.parser as p
 
 
 def index(request):
@@ -18,6 +19,13 @@ def entries(request):
     return render(request, "pt/entries.html", context)
 
 
+def entry(request, entry_id):
+    """Show an entry"""
+    entry = Entry.objects.get(id=entry_id)
+    context = {'entry': entry}
+    return render(request, "pt/entry.html", context)
+
+
 def new_entry(request):
     """Add a new entry"""
     if request.method != 'POST':
@@ -28,32 +36,17 @@ def new_entry(request):
         form = EntryForm(request.POST)
         if form.is_valid():
             new_entry = form.save(commit=False)
+            new_entry.url = p.clip_parameters(new_entry.url)
             price, date = f.get_price_data(new_entry.url)
-            new_entry.date_updated = date
-            new_entry.price = price
-            new_entry.owner = request.user
-            new_entry.save()
-            return HttpResponseRedirect(reverse('pt:entries'))
+            if price:
+                new_entry.date_updated = date
+                new_entry.price = price
+                new_entry.owner = request.user
+                new_entry.save()
+                return HttpResponseRedirect(reverse('pt:entries'))
 
     context = {'form': form}
     return render(request, 'pt/new_entry.html', context)
-
-
-def edit_entry(request, entry_id):
-    """Edit an existing entry."""
-    entry = Entry.objects.get(id=entry_id)
-    if request.method != 'POST':
-        # Initial request; pre-fill form with the current entry.
-        form = EntryForm(instance=entry)
-    else:
-        # POST data submitted; process data.
-        form = EntryForm(instance=entry, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('pt:entries'))
-
-    context = {'entry': entry, 'form': form}
-    return render(request, 'pt/edit_entry.html', context)
 
 
 def remove_entry(request, entry_id):
