@@ -11,8 +11,7 @@
   <li>
     <a href="{% url 'pt:entry' entry.id %}">{{ entry }}</a>
     <small>
-      <a href="{% url 'pt:remove_entry' entry.id %}">
-        remove</a>
+      <a href="{% url 'pt:remove_entry' entry.id %}">remove</a>
     </small>
   </li>
     {% empty %}

@@ -57,6 +57,7 @@ def remove_entry(request, entry_id):
         form = EntryForm(instance=entry)
     else:
         # DELETE entry
+        print("\n\nREMOVING")
         entry.delete()
         return HttpResponseRedirect(reverse('pt:entries'))
 
