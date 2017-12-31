@@ -6,9 +6,11 @@ class Entry(models.Model):
     url = models.CharField(max_length=256)
     date_updated = models.DateTimeField(auto_now_add=False)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    TREND_UP = "UP"
+    TREND_DOWN = "DOWN"
     TREND_CHOICES = (
-        ('UP', '+'),
-        ('DOWN', '-'),
+        (TREND_UP, '+'),
+        (TREND_DOWN, '-'),
     )
     trend = models.CharField(
         max_length=4,

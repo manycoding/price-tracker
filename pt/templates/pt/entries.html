@@ -9,7 +9,8 @@
   <ul>
     {% for entry in entries %}
   <li>
-    <a href="{% url 'pt:entry' entry.id %}">{{ entry }}</a>
+    <p>{{ entry.price }} {{ entry.trend }}</p>
+    <a href="{% url 'pt:entry' entry.id %}">{{ entry.url }}</a>
     <small>
       <a href="{% url 'pt:remove_entry' entry.id %}">remove</a>
     </small>

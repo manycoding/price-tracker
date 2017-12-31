@@ -4,6 +4,8 @@
 {% block content %}
 
   <p>URL: {{ entry.url }}</p>
-  <p>Last price: {{ entry.price }}</p>
+  <p>Last price: {{ entry.price }} {{ entry.trend}}</p>
+  <p>{{ entry.prices }}</p>
+
 
 {% endblock content %}
