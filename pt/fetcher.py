@@ -2,6 +2,7 @@ import pt.parser as parser
 import pt.router as router
 from bs4 import BeautifulSoup
 from datetime import datetime
+from decimal import Decimal
 
 
 def get_price_data(url):
@@ -14,4 +15,4 @@ def get_price_data(url):
     if price is None:
         return None, (str(datetime.utcnow())).split('.')[0]
     print("Fetched {} from {}".format(price, url))
-    return price, (str(datetime.utcnow())).split('.')[0]
+    return Decimal(price), (str(datetime.utcnow())).split('.')[0]

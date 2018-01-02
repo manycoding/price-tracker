@@ -25,6 +25,10 @@ def update_price_data():
         if not price:
             continue
         if price != entry.price:
-            entry.prices += ", ".format(entry.price)
+            if entry.prices:
+                entry.prices += ", ".format(entry.price)
+            else:
+                entry.prices = entry.price
             entry.trend = entry.TREND_DOWN if price < entry.price else entry.TREND_UP
             entry.price = price
+            entry.save()
