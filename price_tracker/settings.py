@@ -124,3 +124,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+from celery.schedules import crontab
+
+# Other Celery settings
+CELERY_BEAT_SCHEDULE = {
+    'update_price_data': {
+        'task': 'pt.tasks.update_price_data',
+        # 'schedule': crontab()
+        'schedule': crontab(hour=23, minute=00)
+    },
+}
