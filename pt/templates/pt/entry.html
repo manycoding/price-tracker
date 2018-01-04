@@ -3,9 +3,20 @@
 
 {% block content %}
 
-  <p>URL: {{ entry.url }}</p>
-  <p>Last price: {{ entry.price }} {{ entry.trend}}</p>
-  <p>{{ entry.prices }}</p>
+  <p>URL:
+    <a href={{entry.url}}>{{ entry.url }}</a>
+  </p>
+  <p>Last price:
+    {{ entry.price }} 
+    {% if entry.trend %}
+      {{ entry.trend}}
+    {% endif %}
+  </p>
+  <p>
+    {% if entry.prices %}
+      {{ entry.prices }}
+    {% endif %}
+  </p>
 
 
 {% endblock content %}
