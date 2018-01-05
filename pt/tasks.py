@@ -24,7 +24,7 @@ def update_price_data():
         if price != entry.price:
             if entry.prices:
                 print("prices key found in row, adding previous price")
-                entry.prices += ", ".format(entry.price)
+                entry.prices += "{}, ".format(entry.price)
             else:
                 print("prices key not found in row, creating new")
                 entry.prices = entry.price

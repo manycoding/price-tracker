@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # My apps
     'pt',
+    'users',
 
     # Third-party libs
     'bootstrap3',
