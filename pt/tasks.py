@@ -1,5 +1,6 @@
 # from celery.schedules import crontab
 from .models import Entry
+from .models import Price
 from price_tracker.celery import app
 import pt.fetcher as f
 
@@ -16,18 +17,14 @@ import pt.fetcher as f
 
 @app.task
 def update_price_data():
-    entries = Entry.objects.order_by('date_updated')
+    entries = Entry.objects.all()
     for entry in entries:
         price, date = f.get_price_data(entry.url)
         if not price:
             continue
-        if price != entry.price:
-            if entry.prices:
-                print("prices key found in row, adding previous price")
-                entry.prices += "{}, ".format(entry.price)
-            else:
-                print("prices key not found in row, creating new")
-                entry.prices = entry.price
-            entry.trend = entry.TREND_DOWN if price < entry.price else entry.TREND_UP
-            entry.price = price
+        last_price = entry.price_set.last().price
+        if price != last_price:
+            price = Price(entry=entry, price=price, date=date)
+            entry.trend = entry.TREND_DOWN if price < last_price else entry.TREND_UP
             entry.save()
+            price.save

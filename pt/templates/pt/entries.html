@@ -9,7 +9,7 @@
   <ul>
     {% for entry in entries %}
   <li>
-    {{ entry.price }}
+    {{ entry.price_set.last.price }} 
     {% if entry.trend %}
       {{ entry.trend }}
     {% endif %}

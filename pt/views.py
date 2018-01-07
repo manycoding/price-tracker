@@ -3,7 +3,11 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+from graphos.renderers.gchart import LineChart
+from graphos.sources.model import ModelDataSource
+
 from .models import Entry
+from .models import Price
 from .forms import EntryForm
 import pt.fetcher as f
 import pt.parser as p
@@ -17,7 +21,7 @@ def index(request):
 @login_required
 def entries(request):
     """Show all entries"""
-    entries = Entry.objects.filter(owner=request.user).order_by('date_updated')
+    entries = Entry.objects.filter(owner=request.user).order_by('id')
     context = {'entries': entries}
     return render(request, "pt/entries.html", context)
 
@@ -30,7 +34,11 @@ def entry(request, entry_id):
     if entry.owner != request.user:
         raise Http404
 
-    context = {'entry': entry}
+    prices = entry.price_set.order_by('date')
+    data_source = ModelDataSource(prices, fields=['date', 'price'])
+    chart = LineChart(data_source)
+
+    context = {'entry': entry, 'prices': prices, 'chart': chart}
     return render(request, "pt/entry.html", context)
 
 
@@ -49,10 +57,13 @@ def new_entry(request):
             new_entry.url = p.clip_parameters(new_entry.url)
             price, date = f.get_price_data(new_entry.url)
             if price:
-                new_entry.date_updated = date
-                new_entry.price = price
+                # new_entry.date = date
+                # new_entry.price = price
                 new_entry.owner = request.user
                 new_entry.save()
+                new_price = Price(entry=new_entry, price=price, date=date)
+                new_price.save()
+
                 return HttpResponseRedirect(reverse('pt:entries'))
 
     context = {'form': form}

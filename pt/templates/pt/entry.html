@@ -7,15 +7,23 @@
     <a href={{entry.url}}>{{ entry.url }}</a>
   </p>
   <p>Last price:
-    {{ entry.price }} 
+    {{ prices.last.price }} 
     {% if entry.trend %}
       {{ entry.trend}}
     {% endif %}
   </p>
   <p>
-    {% if entry.prices %}
-      {{ entry.prices }}
-    {% endif %}
+    {% for price in prices %}
+      {{ price.price }} {{ price.date }}
+    {% endfor %}
+  </p>
+  
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+  </script>
+  <p>
+    {{chart.as_html}}
   </p>
 
 
