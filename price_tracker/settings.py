@@ -137,3 +137,7 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(hour=23, minute=00)
     },
 }
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
