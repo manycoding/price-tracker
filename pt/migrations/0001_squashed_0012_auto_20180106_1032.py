@@ -7,8 +7,6 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    replaces = [('pt', '0001_initial'), ('pt', '0002_auto_20171226_1036'), ('pt', '0003_remove_entry_date_updated'), ('pt', '0004_entry_date_updated'), ('pt', '0005_auto_20171227_1309'), ('pt', '0006_auto_20171228_0804'), ('pt', '0007_entry_trend'), ('pt', '0008_entry_prices'), ('pt', '0009_entry_owner'), ('pt', '0010_auto_20180105_1508'), ('pt', '0011_auto_20180105_1511'), ('pt', '0012_auto_20180106_1032')]
-
     initial = True
 
     dependencies = [
