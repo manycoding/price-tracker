@@ -1,5 +1,5 @@
 # price_tracker
-  A service to write price changes of specified items.
+  A service to fetch price changes of specified items. Update frequency specified in *settings.py*, currently it's daily at 23:00
   
   Dev server:
   
