@@ -57,8 +57,6 @@ def new_entry(request):
             new_entry.url = p.clip_parameters(new_entry.url)
             price, date = f.get_price_data(new_entry.url)
             if price:
-                # new_entry.date = date
-                # new_entry.price = price
                 new_entry.owner = request.user
                 new_entry.save()
                 new_price = Price(entry=new_entry, price=price, date=date)

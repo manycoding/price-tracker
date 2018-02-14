@@ -13,7 +13,7 @@ def update_price_data():
             continue
         last_price = entry.price_set.last().price
         if price != last_price:
-            price = Price(entry=entry, price=price, date=date)
             entry.trend = entry.TREND_DOWN if price < last_price else entry.TREND_UP
             entry.save()
-            price.save
+            p = Price(entry=entry, price=price, date=date)
+            p.save()
