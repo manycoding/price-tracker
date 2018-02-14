@@ -1,4 +1,6 @@
+# Local databases
 db.sqlite3
+celerybeat-schedule.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
