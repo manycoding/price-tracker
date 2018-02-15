@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from celery.schedules import crontab
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -130,6 +128,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+from celery.schedules import crontab
+
 # Other Celery settings
 CELERY_BEAT_SCHEDULE = {
     'update_price_data': {
@@ -138,6 +138,8 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(hour=23, minute=00)
     },
 }
+CELERY_BROKER_POOL_LIMIT = 1
+CELERY_BROKER_URL = os.environ['CLOUDAMQP_URL']
 
 # Configure Django App for Heroku.
 import django_heroku

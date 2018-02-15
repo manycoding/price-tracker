@@ -12,11 +12,11 @@
       {{ entry.trend}}
     {% endif %}
   </p>
-  <p>
-    {% for price in prices %}
-      {{ price.price }} {{ price.date }}
+    <ul>
+    {% for price in prices reversed %}
+      <li>{{ price.price }} {{ price.date }}</li>
     {% endfor %}
-  </p>
+    </ul>
   
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript">

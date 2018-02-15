@@ -5,8 +5,7 @@ from celery import Celery
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'price_tracker.settings')
 
-app = Celery('price_tracker',
-             broker='amqp://pt_admin:password@localhost:5672/myvhost')
+app = Celery('price_tracker')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
