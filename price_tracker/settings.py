@@ -128,19 +128,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from celery.schedules import crontab
-
-# Other Celery settings
-CELERY_BEAT_SCHEDULE = {
-    'update_price_data': {
-        'task': 'pt.tasks.update_price_data',
-        # 'schedule': crontab()
-        'schedule': crontab(hour=23, minute=00)
-    },
-}
-CELERY_BROKER_POOL_LIMIT = 1
-CELERY_BROKER_URL = os.environ['CLOUDAMQP_URL']
-
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
