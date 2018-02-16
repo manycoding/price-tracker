@@ -5,7 +5,7 @@
   
   https://rocky-lowlands-69345.herokuapp.com
   
-## Supported shops
+## Supported Shops
   * aliexpress.com
   * hanchor.com
 
