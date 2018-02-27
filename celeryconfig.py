@@ -2,7 +2,7 @@ import os
 from celery.schedules import crontab
 
 broker_url = os.environ['CLOUDAMQP_URL']
-crontab_schedule = os.environ.get('CELERY_SCHEDULE', '*/1440')
+crontab_schedule = os.environ.get('CELERY_SCHEDULE', '*/5')
 
 beat_schedule = {
     'update_price_data': {
