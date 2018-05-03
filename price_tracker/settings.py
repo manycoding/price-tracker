@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'price_tracker.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 json_data = open('zappa_settings.json')
-zappa_vars = json.load(json_data)['dev']
+zappa_vars = json.load(json_data)["dev"]
 DATABASES = {
     'default': {
         'ENGINE': 'zappa_django_utils.db.backends.s3sqlite',
         'NAME': os.environ.get('DB_NAME', 'price_tracker_db'),
-        'BUCKET': zappa_vars['s3_bucket']
+        'BUCKET': zappa_vars["s3_bucket"]
     }
 }
 

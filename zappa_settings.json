@@ -9,6 +9,10 @@
         "environment_variables": {
             "DEBUG": "True",
             "DB_NAME": "sqlite.db"
-        }
+        },
+        "events": [{
+           "function": "pt.tasks.update_price_data",
+           "expression": "rate(24 hours)"
+       }]
     }
 }

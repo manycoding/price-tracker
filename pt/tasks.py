@@ -1,10 +1,8 @@
 from .models import Entry
 from .models import Price
-from price_tracker.celery import app
 import pt.fetcher as f
 
 
-@app.task
 def update_price_data():
     entries = Entry.objects.all()
     for entry in entries:
