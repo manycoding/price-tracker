@@ -1,13 +1,9 @@
 beautifulsoup4==4.6.0
-celery==4.1.0
 dj-database-url==0.4.2
 Django==2.0
 django-bootstrap3==9.1.0
-django-celery==3.2.2
 django-graphos==0.3.41
-django-heroku==0.2.0
 django-tagging==0.4.6
-gunicorn==19.7.1
 kombu==4.1.0
 lxml==4.1.1
 requests==2.18.4

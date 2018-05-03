@@ -3,11 +3,10 @@
   
   Dev server:
   
-  https://rocky-lowlands-69345.herokuapp.com
+  https://is29q06ry7.execute-api.ap-northeast-1.amazonaws.com/dev
   
 ## Supported Shops
   * aliexpress.com
-  * hanchor.com
 
 ## In Short
     python3 manage.py runserver

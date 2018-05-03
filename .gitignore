@@ -1,6 +1,5 @@
-# Local databases
-db.sqlite3
-celerybeat-schedule.db
+# Local env
+env/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

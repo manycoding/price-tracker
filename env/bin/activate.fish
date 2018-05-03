@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/el_carbon/Code/price_tracker/env"
+set -gx VIRTUAL_ENV "/Users/valery/Documents/_code/_github/price-tracker/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

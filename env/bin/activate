@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/el_carbon/Code/price_tracker/env"
+VIRTUAL_ENV="/Users/valery/Documents/_code/_github/price-tracker/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

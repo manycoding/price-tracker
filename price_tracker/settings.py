@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,8 @@ SECRET_KEY = 'on@mj%a55cp2m+2+mt8paz4aho)$6309qf(32ixnb5vva7qmho'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1",
+                 "uhwj0padcg.execute-api.eu-west-2.amazonaws.com"]
 
 
 # Application definition
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     # Third-party libs
     'bootstrap3',
     'graphos',
+    'zappa_django_utils'
 ]
 
 MIDDLEWARE = [
@@ -82,13 +85,15 @@ WSGI_APPLICATION = 'price_tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+json_data = open('zappa_settings.json')
+zappa_vars = json.load(json_data)['dev']
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'zappa_django_utils.db.backends.s3sqlite',
+        'NAME': os.environ.get('DB_NAME', 'price_tracker_db'),
+        'BUCKET': zappa_vars['s3_bucket']
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -127,10 +132,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
 
 # Update database configuration with $DATABASE_URL.
 import dj_database_url
