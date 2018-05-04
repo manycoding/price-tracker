@@ -27,7 +27,7 @@ SECRET_KEY = 'on@mj%a55cp2m+2+mt8paz4aho)$6309qf(32ixnb5vva7qmho'
 DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ["127.0.0.1",
-                 "uhwj0padcg.execute-api.eu-west-2.amazonaws.com"]
+                 "w8p5oxx0g7.execute-api.eu-west-2.amazonaws.com"]
 
 
 # Application definition
