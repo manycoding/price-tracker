@@ -13,6 +13,7 @@
         "events": [{
            "function": "pt.tasks.update_price_data",
            "expression": "rate(24 hours)"
-       }]
+       }],
+        "keep_warm": false
     }
 }
